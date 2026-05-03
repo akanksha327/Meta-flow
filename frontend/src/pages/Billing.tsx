@@ -125,7 +125,7 @@ function getPaymentStatusMeta(
 }
 
 export function Billing() {
-  const { isDemoMode, authMessage, user: authUser, token: authToken } = useAuth();
+  const { isDemoMode } = useAuth();
   const queryClient = useQueryClient();
 
   // 1. Fetch Billing Summary
@@ -173,15 +173,8 @@ export function Billing() {
     console.log("clicked");
     
     try {
-      // Adding Authorization header to the fetch call
-      const res = await fetch("http://localhost:5000/api/payment/create-order", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${authToken}`
-        }
-      });
-      
-      const data = await res.json();
+      // Using the api instance which handles base URL and auth tokens
+      const { data } = await api.post("/payment/create-order");
       console.log("API:", data);
 
       if (!data || !data.id || !data.amount) {

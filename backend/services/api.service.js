@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { Api, ApiKey } from "../models/index.js";
 import { AppError } from "../utils/app-error.js";
 import { serializeApi } from "../utils/api-serializers.js";

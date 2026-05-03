@@ -25,10 +25,8 @@ export function Sidebar() {
     <aside className="w-64 h-screen bg-primary flex flex-col border-r border-primary-800 shrink-0 sticky top-0">
       <div className="h-20 flex items-center px-8 border-b border-primary-800/50">
         <div className="flex items-center gap-3">
-          <div className="w-8 h-8 rounded-lg bg-accent flex items-center justify-center">
-            <span className="text-white font-bold text-lg">M</span>
-          </div>
-          <span className="text-white font-semibold tracking-wide text-lg">MeterFlow</span>
+          <img src="/logo.png" alt="MeterFlow Logo" className="w-10 h-10 object-contain" />
+          <span className="text-white font-bold tracking-wide text-xl">MeterFlow</span>
         </div>
       </div>
       

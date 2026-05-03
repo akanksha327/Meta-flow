@@ -206,7 +206,8 @@ export function Billing() {
       rzp.open();
     } catch (err: any) {
       console.error("Payment error:", err);
-      alert("Error starting payment process.");
+      const errorMessage = err.response?.data?.message || err.message || "Unknown error";
+      alert(`Error starting payment process: ${errorMessage}`);
     }
   };
 

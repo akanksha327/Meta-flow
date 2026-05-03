@@ -128,7 +128,9 @@ export function APIs() {
       resetCreateForm();
     },
     onError: (err: any) => {
-      toast.error(err.response?.data?.message || 'Failed to create API');
+      console.error("API Creation Error:", err);
+      const msg = err.response?.data?.message || err.message || 'Failed to create API';
+      toast.error(msg);
     },
   });
 

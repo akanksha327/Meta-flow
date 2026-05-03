@@ -1,4 +1,5 @@
 export function errorHandler(error, _req, res, _next) {
+  console.error("Backend Error:", error);
   let statusCode = error.statusCode ?? 500;
   let message = error.message ?? "Internal server error";
   let details = error.details ?? null;

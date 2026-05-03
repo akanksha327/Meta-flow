@@ -33,17 +33,25 @@ export async function createApiForUser(userId, payload) {
     throw new AppError("API baseUrl is required.", 400);
   }
 
-  const apiRecord = await Api.create({
-    name,
-    baseUrl: normalizeBaseUrl(baseUrl),
-    userId,
-  });
+  console.log("Creating API in DB for user:", userId);
 
-  return serializeApi({ ...apiRecord.toObject(), id: apiRecord._id.toString(), keyCount: 0 });
+  try {
+    const apiRecord = await Api.create({
+      name,
+      baseUrl: normalizeBaseUrl(baseUrl),
+      userId: new mongoose.Types.ObjectId(userId),
+    });
+
+    console.log("API created in DB:", apiRecord._id);
+    return serializeApi({ ...apiRecord.toObject(), id: apiRecord._id.toString(), keyCount: 0 });
+  } catch (error) {
+    console.error("Mongoose error in createApiForUser:", error);
+    throw error;
+  }
 }
 
 export async function listApisForUser(userId) {
-  const apiRecords = await Api.find({ userId }).sort({ createdAt: -1 }).lean();
+  const apiRecords = await Api.find({ userId: new mongoose.Types.ObjectId(userId) }).sort({ createdAt: -1 }).lean();
 
   const apisWithCounts = await Promise.all(
     apiRecords.map(async (api) => {

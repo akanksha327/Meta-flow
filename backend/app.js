@@ -9,6 +9,7 @@ import gatewayRoutes from "./routes/gateway.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 import usageRoutes from "./routes/usage.routes.js";
 import apiKeyRoutes from "./routes/apiKey.routes.js";
+import healthRoutes from "./routes/health.routes.js";
 import testRoutes from "./routes/test.routes.js";
 
 const app = express();
@@ -18,12 +19,7 @@ app.disable("x-powered-by");
 app.use(cors());
 app.use(requestLogger);
 
-app.get("/health", (_req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "MeterFlow backend is running.",
-  });
-});
+app.use("/health", healthRoutes);
 
 app.get("/posts", (_req, res) => {
   res.status(200).json([
@@ -52,10 +48,6 @@ app.use(
     limit: env.REQUEST_BODY_LIMIT,
   }),
 );
-
-app.use("/api/payment", paymentRoutes);
-app.use("/api/usage", usageRoutes);
-app.use("/api/keys", apiKeyRoutes);
 
 app.use("/test", testRoutes);
 app.use("/api", apiRoutes);

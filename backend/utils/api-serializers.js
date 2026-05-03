@@ -1,8 +1,9 @@
 import { getApiKeyPrefix } from "./generate-api-key.js";
 
 export function serializeApi(apiRecord) {
+  const id = apiRecord.id || apiRecord._id?.toString() || null;
   return {
-    id: apiRecord.id,
+    id,
     name: apiRecord.name,
     baseUrl: apiRecord.baseUrl,
     createdAt: apiRecord.createdAt,

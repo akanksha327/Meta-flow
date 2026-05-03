@@ -40,7 +40,7 @@ export async function createApiForUser(userId, payload) {
     const apiRecord = await Api.create({
       name,
       baseUrl: normalizeBaseUrl(baseUrl),
-      userId: new mongoose.Types.ObjectId(userId),
+      userId,
     });
 
     console.log("API created in DB:", apiRecord._id);
@@ -52,7 +52,7 @@ export async function createApiForUser(userId, payload) {
 }
 
 export async function listApisForUser(userId) {
-  const apiRecords = await Api.find({ userId: new mongoose.Types.ObjectId(userId) }).sort({ createdAt: -1 }).lean();
+  const apiRecords = await Api.find({ userId }).sort({ createdAt: -1 }).lean();
 
   const apisWithCounts = await Promise.all(
     apiRecords.map(async (api) => {
